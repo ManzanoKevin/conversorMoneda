@@ -9,7 +9,7 @@ async function getMonedas() {
         const monedas = await res.json();
         return monedas;
     } catch (error) {
-        alert(error.message);
+        alert('Error al obtener información tipo de cambio');
     }
 }
 
@@ -27,7 +27,7 @@ async function cargarSelect() {
             }
         }
     } catch (error) {
-        alert('Hay problemas para encontrar los datos API');
+        alert('Ingrese un monto válido');
     }
 }
 
@@ -54,9 +54,9 @@ async function cargarDatosSerie() {
         const url = `https://mindicador.cl/api/${selectedText}`;
         const res = await fetch(url);
         const datosDias = await res.json();
-        return datosDias.serie;
+        return datosDias.serie.slice(0, 10).reverse();
     } catch (error) {
-        alert(error.message);
+        alert('No se logró obtener datos para el grádico');
     }
 }
 
@@ -75,7 +75,7 @@ async function crearGrafico() {
         data: {
             labels: labels,
             datasets: [{
-                label: "Valor moneda",
+                label: "Valor moneda últimos 10 días",
                 data: data,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
